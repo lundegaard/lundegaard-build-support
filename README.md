@@ -1,4 +1,4 @@
-# Lundegaard build tools
+# Lundegaard build tools support
 
 This project contains resources for different build tools. It is mainly used as a dependency for Maven plugins, e.g. like this
 

@@ -6,13 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.lundegaard.commons</groupId>
-    <artifactId>lundegaard-build-tools</artifactId>
+    <artifactId>build-support</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>Lundegaard Commons :: Build Tools</name>
+    <name>Lundegaard Commons :: Build Support</name>
     <description>
-        This artifact contains settings for different build tools used in Lundegaard for Java development.
+        This project contains settings for different build tools used in Lundegaard for Java based development.
     </description>
 
     <organization>
