@@ -184,52 +184,6 @@
         </profile>
     </profiles>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>lundegaard-nexus</id>
-            <name>Lundegaard Repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>lundegaard-nexus</id>
-            <name>Lundegaard Repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
