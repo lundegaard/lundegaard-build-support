@@ -8,27 +8,13 @@
     <groupId>eu.lundegaard.commons</groupId>
     <artifactId>build-support</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>Lundegaard Commons :: Build Support</name>
     <description>
         This project contains settings for different build tools used in Lundegaard for Java based development.
     </description>
-
-    <organization>
-        <name>Lundegaard, s. r. o.</name>
-        <url>http://www.lundegaard.eu</url>
-    </organization>
-
-    <issueManagement>
-        <system>Jira</system>
-        <url>https://jira.lnd.bz</url>
-    </issueManagement>
-
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>https://jenkins.lnd.bz</url>
-    </ciManagement>
+    <url>https://github.com/lundegaard/lundegaard-build-support</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,6 +37,89 @@
                 </excludes>
             </resource>
         </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <failFast>true</failFast>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.8.0,1.9.0)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.6.0,4.0.0)</version>
+                                </requireMavenVersion>
+                                <requireReleaseDeps/>
+                                <requireUpperBoundDeps/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
@@ -59,7 +128,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <executions>
                             <execution>
@@ -71,7 +139,6 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <executions>
                             <execution>
@@ -81,6 +148,36 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                    <!--<passphraseServerId>gpg-signature_ales-rybak-lundegaard-eu</passphraseServerId>-->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -134,16 +231,54 @@
     </pluginRepositories>
 
     <distributionManagement>
-        <repository>
-            <id>lundegaard-nexus-releases</id>
-            <name>Lundegaard repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>lundegaard-nexus-snapshots</id>
-            <name>lundegaard repository</name>
-            <url>https://nexus.lnd.bz/repository/maven-snapshots/</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/lundegaard/lundegaard-build-support.git</connection>
+        <developerConnection>scm:git:ssh://github.com:lundegaard/lundegaard-build-support.git</developerConnection>
+        <url>https://github.com/lundegaard/lundegaard-build-support/tree/master</url>
+    </scm>
+
+    <organization>
+        <name>Lundegaard a.s.</name>
+        <url>https://www.lundegaard.eu</url>
+    </organization>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>https://jira.lnd.bz</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://jenkins.lnd.bz</url>
+    </ciManagement>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License 3.0</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <inceptionYear>2016</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>ales.rybak</id>
+            <name>Aleš Rybák</name>
+            <email>ales.rybak@lundegaard.eu</email>
+            <organization>Lundegaard a.s.</organization>
+            <organizationUrl>https://www.lundegaard.eu</organizationUrl>
+        </developer>
+    </developers>
 
 </project>
