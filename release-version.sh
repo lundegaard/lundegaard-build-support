@@ -29,7 +29,7 @@ git add "*pom.xml"
 git commit -m "release/$1 Maven project version set to $1"
 
 # Build and analyze with sonar
-mvn clean jacoco:prepare-agent install sonar:sonar -P lundegaard-sonar
+mvn clean install
 
 # Finish the release branch
 git checkout master
