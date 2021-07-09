@@ -15,8 +15,8 @@ This project contains resources for different build tools. It is mainly used as 
     <dependencies>
         <dependency>
             <groupId>eu.lundegaard.commons</groupId>
-            <artifactId>lundegaard-build-tools</artifactId>
-            <version>${lundegaard.build.tools.version}</version>
+            <artifactId>build-support</artifactId>
+            <version>${lundegaard.build.support.version}</version>
         </dependency>
     </dependencies>
 </plugin>
